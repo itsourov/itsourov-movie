@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'SolaimanLipi';
+    src: url('/font/subset-SolaimanLipiNormal.eot');
+    src: local('SolaimanLipiNormal'),
+        url('/font/subset-SolaimanLipiNormal.eot?#iefix') format('embedded-opentype'),
+        url('/font/subset-SolaimanLipiNormal.woff2') format('woff2'),
+        url('/font/subset-SolaimanLipiNormal.woff') format('woff'),
+        url('/font/subset-SolaimanLipiNormal.ttf') format('truetype'),
+        url('/font/subset-SolaimanLipiNormal.svg#SolaimanLipiNormal') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[x-cloak] {
+    display: none !important;
+}
