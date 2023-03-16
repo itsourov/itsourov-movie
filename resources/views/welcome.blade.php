@@ -1,17 +1,9 @@
-<!doctype html>
-<html>
+<x-app-layout>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-
-<body>
-    @include('inc.navbar')
-    <h1 class="text-3xl font-bold underline">
-        Hello world!
-    </h1>
-</body>
-
-</html>
+    <div class=" bg-gray-900 h-screen bg-cover"
+        style="background-image: url('https://themebeyond.com/html/movflx/img/banner/banner_bg01.jpg');">
+        asdds</div>
+    <div class=" bg-gray-900 h-screen bg-cover"
+        style="background-image: url({{ asset('img/backgroud/round-pattern.jpeg') }});">
+        asdds</div>
+</x-app-layout>
