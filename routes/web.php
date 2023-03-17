@@ -15,9 +15,7 @@ use App\Http\Controllers\ProfileController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [MovieController::class, 'index'])->name('home');
 
 
 Route::middleware('auth')->group(function () {
@@ -29,6 +27,7 @@ Route::middleware('auth')->group(function () {
 
 Route::prefix('movies')->group(function () {
     Route::get('/', [MovieController::class, 'index'])->name('movies.index');
+    Route::get('/{movieid}', [MovieController::class, 'show'])->name('movies.show');
 });
 
 
