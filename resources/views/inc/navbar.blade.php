@@ -1,5 +1,5 @@
 <header class=" border-b bg-white lg:pb-0" x-data="{ mobileMenuOpened: false, isProfileMenuOpen: false }">
-    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+    <div class="container mx-auto px-2">
         <!-- lg+ -->
         <nav class="flex items-center justify-between h-16 lg:h-20">
             <div class="flex-shrink-0">

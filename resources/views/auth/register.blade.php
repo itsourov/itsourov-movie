@@ -22,7 +22,8 @@
 
                                 <x-input.label>Full Name</x-input.label>
 
-                                <x-input.text type="text" name="name" placeholder="Enter your full name" />
+                                <x-input.text class="p-4" type="text" name="name"
+                                    placeholder="Enter your full name" />
 
                                 <x-input.error :messages="$errors->get('name')" />
                             </div>
@@ -32,7 +33,8 @@
 
                                 <x-input.label>Email address</x-input.label>
 
-                                <x-input.text type="email" name="email" placeholder="Enter email to get started" />
+                                <x-input.text class="p-4" type="email" name="email"
+                                    placeholder="Enter email to get started" />
 
                                 <x-input.error :messages="$errors->get('email')" />
                             </div>
@@ -41,7 +43,8 @@
 
                                 <x-input.label>Password</x-input.label>
 
-                                <x-input.text type="password" name="password" placeholder="Enter your password" />
+                                <x-input.text class="p-4" type="password" name="password"
+                                    placeholder="Enter your password" />
 
                                 <x-input.error :messages="$errors->get('password')" />
                             </div>
@@ -49,7 +52,7 @@
 
                                 <x-input.label>Confirm password</x-input.label>
 
-                                <x-input.text type="password_confirmation" name="password_confirmation"
+                                <x-input.text class="p-4" type="password_confirmation" name="password_confirmation"
                                     placeholder="Confirm your password" />
 
                                 <x-input.error :messages="$errors->get('password_confirmation')" />
@@ -58,7 +61,7 @@
                             <div class="flex items-center">
 
 
-                                <label for="agree" class="ml-3 text-sm font-medium text-gray-500">
+                                <label for="agree" class=" text-sm font-medium text-gray-500">
                                     By clicking the button below I agree to {{ config('app.name') }}’s <a href="#"
                                         title="" class="text-blue-600 hover:text-blue-700 hover:underline">Terms
                                         of Service</a>
@@ -69,7 +72,7 @@
 
                             <div>
 
-                                <x-button.primary>Create free account</x-button.primary>
+                                <x-button.primary class="w-full py-4 px-4">Create free account</x-button.primary>
                             </div>
                         </div>
                     </form>
@@ -78,16 +81,22 @@
                 </div>
             </div>
 
-            <div class="flex items-center justify-center px-4 py-10 sm:py-16 lg:py-24 bg-gray-50 sm:px-6 lg:px-8">
+            <div
+                class="flex
+                                    items-center justify-center px-4 py-10 sm:py-16 lg:py-24 bg-gray-50 sm:px-6
+                                    lg:px-8">
                 <div>
                     <img class="w-full mx-auto"
                         src="https://cdn.rareblocks.xyz/collection/celebration/images/signup/1/cards.png"
                         alt="" />
 
                     <div class="w-full max-w-md mx-auto xl:max-w-xl">
-                        <h3 class="text-2xl font-bold text-center text-black">Design your own card</h3>
-                        <p class="leading-relaxed text-center text-gray-500 mt-2.5">Amet minim mollit non deserunt
-                            ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis.</p>
+                        <h3 class="text-2xl font-bold text-center text-black">Design your own card
+                        </h3>
+                        <p class="leading-relaxed text-center text-gray-500 mt-2.5">Amet minim
+                            mollit non deserunt
+                            ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis.
+                        </p>
 
                         <div class="flex items-center justify-center mt-10 space-x-3">
                             <div class="bg-orange-500 rounded-full w-20 h-1.5"></div>

@@ -28,6 +28,7 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+
         $request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {
@@ -36,16 +37,12 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        $temporaryFile = TemporaryFile::where('folder', $request->profileImage)->first();
-
-        if ($temporaryFile) {
-
-            $request->user()->addMedia(storage_path('app/public/temp/profile/' . $request->profileImage . '/' . $temporaryFile->filename))
+        if (request()->hasFile('profileImage')) {
+            $request->user()->addMediaFromRequest('profileImage')
 
                 ->toMediaCollection('profileImages', 'profile-image');
-            Storage::deleteDirectory('public/temp/profile/' .  $request->profileImage);
-            $temporaryFile->delete();
         }
+
 
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');

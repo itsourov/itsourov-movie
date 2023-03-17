@@ -23,7 +23,8 @@
 
                                 <x-input.label>Email address</x-input.label>
 
-                                <x-input.text type="email" name="email" placeholder="Enter email to get started" />
+                                <x-input.text class="p-4" type="email" name="email"
+                                    placeholder="Enter email to get started" />
 
                                 <x-input.error :messages="$errors->get('email')" />
                             </div>
@@ -36,13 +37,14 @@
                                         Forgot password? </a>
                                 </div>
 
-                                <x-input.text type="password" name="password" placeholder="Enter your password" />
+                                <x-input.text class="p-4" type="password" name="password"
+                                    placeholder="Enter your password" />
 
                                 <x-input.error :messages="$errors->get('password')" />
                             </div>
 
                             <div>
-                                <x-button.primary>Log in</x-button.primary>
+                                <x-button.primary class="w-full py-4 px-4">Log in</x-button.primary>
                             </div>
                         </div>
                     </form>
