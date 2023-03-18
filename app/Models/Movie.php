@@ -37,4 +37,9 @@ class Movie extends Model
         'cast' => 'array',
         'crew' => 'array',
     ];
+
+    public function links()
+    {
+        return $this->hasMany(Link::class);
+    }
 }

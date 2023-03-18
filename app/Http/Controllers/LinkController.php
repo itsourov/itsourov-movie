@@ -2,25 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Movie;
+use App\Models\Link;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 
-class MovieController extends Controller
+class LinkController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $movies = Movie::latest()->paginate(10);
-
-        dump($movies);
-        return view('movies.index', [
-            'movies' => $movies,
-        ]);
+        //
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -41,22 +34,15 @@ class MovieController extends Controller
     /**
      * Display the specified resource.
      */
-
-
-    public function show(Movie $movie)
+    public function show(Link $link)
     {
-
-
-        dump($movie);
-
-        return view('movies.show', [
-            'movie' => $movie,
-        ]);
+        return redirect($link->value);
     }
+
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Movie $movie)
+    public function edit(Link $link)
     {
         //
     }
@@ -64,7 +50,7 @@ class MovieController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Movie $movie)
+    public function update(Request $request, Link $link)
     {
         //
     }
@@ -72,7 +58,7 @@ class MovieController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Movie $movie)
+    public function destroy(Link $link)
     {
         //
     }

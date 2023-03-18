@@ -4,7 +4,7 @@
 
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-2 gap-y-6">
             @foreach ($movies as $movie)
-                <a href="{{ route('movies.show.new', $movie->id) }}">
+                <a href="{{ route('movies.show', $movie->id) }}">
 
 
                     <div class="border rounded-md overflow-clip group">

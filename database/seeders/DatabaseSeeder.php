@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Link;
 use App\Models\Movie;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Http;
@@ -52,7 +53,7 @@ class DatabaseSeeder extends Seeder
             });
 
             $movie = $movieJson;
-            Movie::create([
+            $newMovie =    Movie::create([
                 'tmdb_id' => $movie->id,
                 'title' => $movie->title,
                 'original_title' => $movie->title,
@@ -68,6 +69,13 @@ class DatabaseSeeder extends Seeder
                 'crew' => ($movie->credits->crew),
                 'synopsis' => ($movie->overview),
             ]);
+
+            for ($i = 0; $i < 3; $i++) {
+                Link::create([
+                    'value' => 'https://google.com',
+                    'movie_id' => $newMovie->id,
+                ]);
+            }
         }
     }
 }
