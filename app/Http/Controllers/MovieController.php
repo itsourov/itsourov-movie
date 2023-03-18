@@ -13,13 +13,18 @@ class MovieController extends Controller
      */
     public function index()
     {
-        // return config('services.tmdb.token');
-        $response = Http::accept('application/json')->withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/movie/popular');
 
 
-        dump(json_decode($response));
+        $response = cache()->remember('popular-movies', 60 * 60, function () {
+
+            $response = Http::accept('application/json')->withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/movie/popular');
+
+            return json_decode($response);
+        });
+
+        dump($response);
         return view('welcome', [
-            'response' => json_decode($response)
+            'response' => $response,
         ]);
     }
 
@@ -44,14 +49,29 @@ class MovieController extends Controller
      */
     public function show($movieid)
     {
-        $movieRes = Http::accept('application/json')->withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/movie/' . $movieid);
-        $videoRes = Http::accept('application/json')->withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/movie/' . $movieid . '/videos');
 
-        $movieJson =  json_decode($movieRes);
-        $videoJson =  json_decode($videoRes);
+        $movieJson = cache()->remember($movieid, 60 * 60, function () use ($movieid) {
 
-        $movieJson->video = $videoJson;
-        dump($movieJson);
+            $movieRes = Http::accept('application/json')->withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/movie/' . $movieid);
+            $imageRes = Http::accept('application/json')->withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/movie/' . $movieid . '/images');
+            $videoRes = Http::accept('application/json')->withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/movie/' . $movieid . '/videos');
+            $creditRes = Http::accept('application/json')->withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/movie/' . $movieid . '/credits');
+
+            $movieJson =  json_decode($movieRes);
+            $creditJson =  json_decode($creditRes);
+            $videoJson =  json_decode($videoRes);
+            $imageJson =  json_decode($imageRes);
+
+            $movieJson->credits = $creditJson;
+            $movieJson->video = $videoJson;
+            $movieJson->image = $imageJson;
+
+            return $movieJson;
+        });
+
+
+        // dump($movieJson);
+
 
         return view('movies.show', [
             'movie' => $movieJson,

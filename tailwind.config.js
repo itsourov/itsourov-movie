@@ -33,7 +33,7 @@ module.exports = {
         'Noto Color Emoji'
       ],
       'sans': [
-        'SolaimanLipi',
+        // 'SolaimanLipi',
         'Inter',
         'ui-sans-serif',
         'system-ui',

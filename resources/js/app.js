@@ -7,3 +7,8 @@ Alpine.start()
 import './filepond.js';
 import 'spotlight.js';
 
+
+import jQuery from 'jquery';
+window.$ = jQuery;
+import './view-all-cast';
+
