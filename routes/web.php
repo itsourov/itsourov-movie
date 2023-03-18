@@ -26,8 +26,9 @@ Route::middleware('auth')->group(function () {
 
 
 Route::prefix('movies')->group(function () {
-    Route::get('/', [MovieController::class, 'index'])->name('movies.index');
+    Route::get('/', [MovieController::class, 'index2'])->name('movies.index');
     Route::get('/{movieid}', [MovieController::class, 'show'])->name('movies.show');
+    Route::get('/{movie}/new', [MovieController::class, 'showNew'])->name('movies.show.new');
 });
 
 

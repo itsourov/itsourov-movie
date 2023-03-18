@@ -13,6 +13,18 @@ class MovieController extends Controller
      */
     public function index()
     {
+        $movies = Movie::latest()->paginate(10);
+
+        dump($movies);
+        return view('movies.index', [
+            'movies' => $movies,
+        ]);
+    }
+    /**
+     * Display a listing of the resource.
+     */
+    public function index2()
+    {
 
 
         $response = cache()->remember('popular-movies', 60 * 60, function () {
@@ -70,7 +82,7 @@ class MovieController extends Controller
         });
 
 
-        // dump($movieJson);
+        dump($movieJson);
 
 
         return view('movies.show', [
@@ -78,6 +90,16 @@ class MovieController extends Controller
         ]);
     }
 
+    public function showNew(Movie $movie)
+    {
+
+
+        dump($movie);
+
+        return view('movies.show-new', [
+            'movie' => $movie,
+        ]);
+    }
     /**
      * Show the form for editing the specified resource.
      */
