@@ -39,6 +39,8 @@
                     data-target="casts-container">Casts</button>
                 <button class="rounded bg-gray-100 px-4 py-1.5 ransition-all duration-200 tab-btn"
                     data-target="trailer-container">Trailer</button>
+                <button class="rounded bg-gray-100 px-4 py-1.5 ransition-all duration-200 tab-btn"
+                    data-target="links-container">Links</button>
 
             </div>
 
@@ -143,7 +145,76 @@
                 </div>
             </div>
         </div>
-    </div>
 
+        <div class=" mt-10 space-y-4" id="links">
+            <h4 class="text-lg font-bold ">Links</h4>
+
+            <div class="links pb-5">
+                <!-- This example requires Tailwind CSS v2.0+ -->
+                <div class="flex flex-col">
+                    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                        <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                            <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th scope="col"
+                                                class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Options</th>
+                                            <th scope="col"
+                                                class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Quality</th>
+                                            <th scope="col"
+                                                class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Language</th>
+                                            <th scope="col"
+                                                class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Clicks</th>
+                                            <th scope="col"
+                                                class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Updated</th>
+                                            {{-- <th scope="col" class="relative px-6 py-3">
+                                                <span class="sr-only">Edit</span>
+                                            </th> --}}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Odd row -->
+                                        <tr class="bg-white">
+                                            <td class="px-3 py-3 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                <button type="button" data-te-ripple-init
+                                                    data-te-ripple-color="light"
+                                                    class="inline-block rounded bg-primary-500 px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
+                                                    Click me
+                                                </button>
+                                            </td>
+                                            <td class="px-3 py-3 whitespace-nowrap text-xs font-bold text-gray-500">
+                                                <p class="border rounded w-min p-1">720P</p>
+                                            </td>
+                                            <td class="px-3 py-3 whitespace-nowrap text-sm text-gray-500">English</td>
+                                            <td class="px-3 py-3 whitespace-nowrap text-sm text-gray-500">1</td>
+                                            <td class="px-3 py-3 whitespace-nowrap text-sm text-gray-500">4 days ago
+                                            </td>
+                                            {{-- <td class="px-3 py-3 whitespace-nowrap text-right text-sm font-medium">
+                                                <a href="#"
+                                                    class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                            </td> --}}
+                                        </tr>
+
+
+
+                                        <!-- More people... -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    @include('movies.inc.how-it-works')
 
 </x-app-layout>
