@@ -1,11 +1,10 @@
-<header class=" border-b bg-white lg:pb-0" x-data="{ mobileMenuOpened: false, isProfileMenuOpen: false }">
+<header class=" border-b dark:border-none bg-white dark:bg-gray-800 lg:pb-0" x-data="{ mobileMenuOpened: false, isProfileMenuOpen: false }">
     <div class="container mx-auto px-2">
         <!-- lg+ -->
         <nav class="flex items-center justify-between h-16 lg:h-20">
             <div class="flex-shrink-0">
                 <a href="{{ route('home') }}" title="" class="flex">
-                    <img class="w-auto h-8 lg:h-10"
-                        src="https://cdn.rareblocks.xyz/collection/celebration/images/logo.svg" alt="" />
+                    <img class="w-auto h-8 lg:h-10" src="{{ asset('img/logo.png') }}" alt="" />
                 </a>
             </div>
 
@@ -44,16 +43,24 @@
                 <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
                     {{ __('Register') }}
                 </x-nav-link>
+                <x-nav-link :href="route('admin.movies.index')" :active="request()->routeIs('admin.movies.index')">
+                    {{ __('Movies admin') }}
+                </x-nav-link>
 
 
 
-                <a href="#" title=""
-                    class="text-base  font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">
-                    Resources </a>
 
-                <a href="#" title=""
-                    class="text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">
-                    Pricing </a>
+            </div>
+            <button id="theme-toggle" data-tooltip-target="tooltip-toggle" type="button"
+                class="ml-4 mr-4 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none  rounded-lg text-sm p-2">
+
+                <x-ri-moon-clear-line id="theme-toggle-dark-icon" class="hidden" />
+                <x-ri-sun-line id="theme-toggle-light-icon" class="hidden" />
+            </button>
+            <div id="tooltip-toggle" role="tooltip"
+                class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip">
+                Toggle dark mode
+                <div class="tooltip-arrow" data-popper-arrow></div>
             </div>
             @auth
                 <x-user.profile-dropdown class="hidden lg:block" />

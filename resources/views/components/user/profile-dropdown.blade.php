@@ -1,7 +1,7 @@
-    <x-dropdown align="right" width="48" class="{{ $class }}">
+    <x-dropdown align="right" width="48" class="{{ $class ?? '' }}">
         <x-slot name="trigger">
             <button type="button"
-                class=" ml-2 lg:ml-6  inline-flex  text-black transition-all duration-200 rounded-full  focus:bg-gray-100 hover:bg-gray-100">
+                class="inline-flex  text-black transition-all duration-200 rounded-full  focus:bg-gray-100 hover:bg-gray-100">
 
                 <span class="sr-only">Open user menu</span>
                 <img class="w-8 h-8 rounded-full border  border-primary-400"
@@ -14,9 +14,9 @@
                 {{ __('Profile') }}
             </x-dropdown-link>
             @if (auth()->user()->role == 'admin')
-                {{-- <x-dropdown-link :href="route('admin')">
+                <x-dropdown-link :href="route('admin')">
                     {{ __('Admin Panel') }}
-                </x-dropdown-link> --}}
+                </x-dropdown-link>
             @endif
 
             <!-- Authentication -->

@@ -13,7 +13,7 @@
                 <p class=" text-xl text-yellow-400 font-bold">{{ date('M. d, Y', strtotime($movie->release_date)) }}</p>
                 <h2 class=" text-3xl font-bold" style="font-family: 'Lora', serif;">{{ $movie->title }}</h2>
                 <div class="flex items-center gap-3">
-                    <div class="bg-gray-100 text-sm  p-1 rounded">
+                    <div class="bg-gray-100 dark:bg-gray-800 text-sm  p-1 rounded">
                         PG 18
                     </div>
                     <p class="text-sm text-gray-500">{{ date('M. d, Y', strtotime($movie->release_date)) }}</p>
@@ -31,15 +31,15 @@
 
             </div>
         </div>
-        <div class="mt-5 border-t border-b py-2">
+        <div class="mt-5 border-t border-b dark:border-gray-700 py-2">
             <div class="grid grid-cols-2 gap-1 md:block md:space-y-1">
-                <button class="rounded bg-gray-100 px-4 py-1.5 transition-all duration-200 tab-btn"
+                <button class="rounded bg-gray-100 dark:bg-gray-700 px-4 py-1.5 transition-all duration-200 tab-btn"
                     data-target="info-container">Info</button>
-                <button class="rounded bg-gray-100 px-4 py-1.5 ransition-all duration-200 tab-btn"
+                <button class="rounded bg-gray-100 dark:bg-gray-700 px-4 py-1.5 ransition-all duration-200 tab-btn"
                     data-target="casts-container">Casts</button>
-                <button class="rounded bg-gray-100 px-4 py-1.5 ransition-all duration-200 tab-btn"
+                <button class="rounded bg-gray-100 dark:bg-gray-700 px-4 py-1.5 ransition-all duration-200 tab-btn"
                     data-target="trailer-container">Trailer</button>
-                <button class="rounded bg-gray-100 px-4 py-1.5 ransition-all duration-200 tab-btn"
+                <button class="rounded bg-gray-100 dark:bg-gray-700 px-4 py-1.5 ransition-all duration-200 tab-btn"
                     data-target="links-container">Links</button>
 
             </div>
@@ -51,7 +51,7 @@
                 <h4 class="text-base font-bold">Synopsis</h4>
                 <p>{{ $movie->synopsis }}</p>
 
-                <hr class="my-5">
+                <hr class="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700">
 
                 <div class="mt-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4">
 
@@ -74,7 +74,8 @@
                 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2  mt-2">
                     @foreach ($movie->crew as $crew)
                         @if ($crew['job'] == 'Director')
-                            <div class="border rounded p-2  flex flex-wrap md:flex-nowrap md:space-x-2">
+                            <div
+                                class="border dark:border-gray-800 dark:shadow dark:shadow-gray-800 dark:bg-gray-900 rounded p-2  flex flex-wrap md:flex-nowrap md:space-x-2">
 
                                 <img src="{{ $crew['profile_path'] ? 'https://image.tmdb.org/t/p/w500' . $crew['profile_path'] : 'https://movies.itsourov.com/wp-content/themes/dooplay/assets/img/no/cast.png' }}"
                                     alt="" class=" object-cover w-full md:w-1/3 rounded shadow">
@@ -95,7 +96,7 @@
 
                 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2  mt-2">
                     @foreach ($movie->cast as $index => $cast)
-                        <div class="border rounded p-2  flex flex-wrap md:flex-nowrap md:space-x-2 singel-cast"
+                        <div class="border dark:border-gray-800 dark:shadow dark:shadow-gray-800 dark:bg-gray-900 rounded p-2  flex flex-wrap md:flex-nowrap md:space-x-2 singel-cast"
                             @if ($index > 9) style="display:none" @endif>
 
                             <img src="{{ $cast['profile_path'] ? 'https://image.tmdb.org/t/p/w500' . $cast['profile_path'] : 'https://movies.itsourov.com/wp-content/themes/dooplay/assets/img/no/cast.png' }}"
@@ -117,16 +118,18 @@
 
 
                             <iframe id="trailerVideoPreview"
-                                src="https://www.youtube.com/embed/{{ $movie->trailers[array_key_last($movie->trailers)]['key'] }}"
+                                src="https://www.youtube.com/embed/{{ $movie->trailers[array_key_last($movie->trailers)]['key'] ?? '' }}"
                                 frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                 allowfullscreen></iframe>
                         </div>
                     </div>
                     <div class="relative overflow-hidden1">
-                        <div class="space-y-3 grid grid-cols-1 overflow-y-scroll h-[60vh] border p-1">
+                        <div
+                            class="space-y-3 grid grid-cols-1 overflow-y-scroll h-[60vh] border dark:border-gray-800 dark:shadow  p-1">
                             @foreach ($movie->trailers as $video)
-                                <button class="border rounded p-2 flex gap-4 trailers-video-btn"
+                                <button
+                                    class="border dark:border-gray-800 dark:shadow dark:shadow-gray-800 dark:bg-gray-900 rounded p-2 flex gap-4 trailers-video-btn"
                                     data-id="{{ $video['key'] }}">
                                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor"
                                         stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
@@ -154,24 +157,24 @@
                 <div class="flex flex-col">
                     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                            <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                                <table class="min-w-full divide-y divide-gray-200">
-                                    <thead class="bg-gray-50">
+                            <div class="shadow overflow-hidden  sm:rounded-lg">
+                                <table class="min-w-full divide-y divide-gray-200 dark:divide-none">
+                                    <thead class="bg-gray-50 dark:bg-gray-800">
                                         <tr>
                                             <th scope="col"
-                                                class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                class="px-3 py-3 text-left text-xs font-medium  uppercase tracking-wider">
                                                 Options</th>
                                             <th scope="col"
-                                                class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                class="px-3 py-3 text-left text-xs font-medium  uppercase tracking-wider">
                                                 Quality</th>
                                             <th scope="col"
-                                                class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                class="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider">
                                                 Language</th>
                                             <th scope="col"
-                                                class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                class="px-3 py-3 text-left text-xs font-medium  uppercase tracking-wider">
                                                 Clicks</th>
                                             <th scope="col"
-                                                class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                class="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider">
                                                 Updated</th>
                                             {{-- <th scope="col" class="relative px-6 py-3">
                                                 <span class="sr-only">Edit</span>
@@ -182,7 +185,8 @@
 
 
                                         @foreach ($movie->links as $link)
-                                            <tr class="{{ $loop->iteration % 2 == 0 ? 'bg-gray-50' : 'bg-white' }}">
+                                            <tr
+                                                class="{{ $loop->iteration % 2 == 0 ? 'bg-gray-50 dark:bg-gray-800' : 'bg-white dark:bg-gray-700' }}">
                                                 <td
                                                     class="px-3 py-3 whitespace-nowrap text-sm font-medium text-gray-900">
                                                     <a href="{{ route('links.show', $link->id) }}" type="button"
@@ -193,7 +197,7 @@
                                                 </td>
                                                 <td
                                                     class="px-3 py-3 whitespace-nowrap text-xs font-bold text-gray-500">
-                                                    <p class="border rounded w-min p-1">720P</p>
+                                                    <p class="border dark:border-gray-500 rounded w-min p-1">720P</p>
                                                 </td>
                                                 <td class="px-3 py-3 whitespace-nowrap text-sm text-gray-500">English
                                                 </td>

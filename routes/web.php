@@ -37,3 +37,4 @@ Route::prefix('links')->group(function () {
 
 
 require __DIR__ . '/inc/web/auth.php';
+require __DIR__ . '/inc/web/admin.php';

@@ -8,9 +8,17 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia(
+                '(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    </script>
 </head>
 
-<body>
+<body class="bg-white text-gray-900 dark:text-gray-100 dark:bg-gray-900 antialiased">
     @include('inc.navbar')
     <main>
         {{ $slot }}
