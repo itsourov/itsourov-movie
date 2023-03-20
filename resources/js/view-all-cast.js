@@ -24,11 +24,11 @@ window.onload = function (e) {
 
 
     $(".tab-content:not(:first)").hide();
-    $(".tab-btn:first").addClass('bg-primary-400 text-white')
+    $(".tab-btn:first").addClass('bg-primary-400 dark:bg-primary-400 text-white')
     $('.tab-btn').on('click', function (event) {
         $('.tab-content').hide()
-        $('.tab-btn').removeClass('bg-primary-400 text-white')
-        $(this).addClass('bg-primary-400 text-white')
+        $('.tab-btn').removeClass('bg-primary-400 dark:bg-primary-400 text-white')
+        $(this).addClass('bg-primary-400 dark:bg-primary-400 text-white')
         $('#' + $(this).attr('data-target')).show()
     });
 

@@ -1,7 +1,9 @@
 <x-admin-layout>
-    <div class="px-2 py-4">
-        <h2 class=" text-lg font-bold">Add new movies</h2>
-
-
+    <div class="my-10 px-2 md:px-5 ">
+        @livewire('admin.movies.create-form')
     </div>
+
+
+
+
 </x-admin-layout>

@@ -16,5 +16,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::prefix('movies')->group(function () {
         Route::get('/', [MovieController::class, 'index'])->name('admin.movies.index');
         Route::get('/create', [MovieController::class, 'create'])->name('admin.movies.create');
+        Route::get('/{movie}', [MovieController::class, 'edit'])->name('admin.movies.edit');
+        Route::post('/{movie}', [MovieController::class, 'update'])->name('admin.movies.update');
     });
 });

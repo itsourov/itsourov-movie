@@ -195,14 +195,13 @@
                                                         Download
                                                     </a>
                                                 </td>
-                                                <td
-                                                    class="px-3 py-3 whitespace-nowrap text-xs font-bold text-gray-500">
+                                                <td class="px-3 py-3 whitespace-nowrap text-xs font-bold ">
                                                     <p class="border dark:border-gray-500 rounded w-min p-1">720P</p>
                                                 </td>
-                                                <td class="px-3 py-3 whitespace-nowrap text-sm text-gray-500">English
+                                                <td class="px-3 py-3 whitespace-nowrap text-sm ">English
                                                 </td>
-                                                <td class="px-3 py-3 whitespace-nowrap text-sm text-gray-500">1</td>
-                                                <td class="px-3 py-3 whitespace-nowrap text-sm text-gray-500">
+                                                <td class="px-3 py-3 whitespace-nowrap text-sm ">1</td>
+                                                <td class="px-3 py-3 whitespace-nowrap text-sm ">
                                                     {{ $link->updated_at->diffForHumans() }}
                                                 </td>
                                                 {{-- <td class="px-3 py-3 whitespace-nowrap text-right text-sm font-medium">

@@ -48,7 +48,10 @@ class MovieController extends Controller
      */
     public function edit(Movie $movie)
     {
-        //
+
+        return view('admin.movies.edit', [
+            'movie' => $movie,
+        ]);
     }
 
     /**

@@ -1,4 +1,4 @@
-<header class=" border-b dark:border-none bg-white dark:bg-gray-800 lg:pb-0" x-data="{ mobileMenuOpened: false, isProfileMenuOpen: false }">
+<header class=" border-b dark:border-gray-700 bg-white dark:bg-gray-800 lg:pb-0" x-data="{ mobileMenuOpened: false, isProfileMenuOpen: false }">
     <div class="container mx-auto px-2">
         <!-- lg+ -->
         <nav class="flex items-center justify-between h-16 lg:h-20">

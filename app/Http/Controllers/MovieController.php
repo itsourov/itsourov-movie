@@ -15,7 +15,7 @@ class MovieController extends Controller
     {
         $movies = Movie::latest()->paginate(10);
 
-        dump($movies);
+        // dump($movies);
         return view('movies.index', [
             'movies' => $movies,
         ]);
@@ -47,7 +47,7 @@ class MovieController extends Controller
     {
 
 
-        dump($movie);
+        // dump($movie);
 
         return view('movies.show', [
             'movie' => $movie,

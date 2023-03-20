@@ -1,12 +1,12 @@
 <x-app-layout>
-    <section class="bg-white">
+    <section class="">
         <div class="grid grid-cols-1 lg:grid-cols-2">
-            <div class="flex items-center justify-center px-4 py-10 bg-white sm:px-6 lg:px-8 sm:py-16 lg:py-24">
+            <div class="flex items-center justify-center px-4 py-10  sm:px-6 lg:px-8 sm:py-16 lg:py-24">
                 <div class="xl:w-full xl:max-w-sm 2xl:max-w-md xl:mx-auto">
-                    <h2 class="text-3xl font-bold leading-tight text-black sm:text-4xl">Sign in to
+                    <h2 class="text-3xl font-bold leading-tight  sm:text-4xl">Sign in to
                         {{ config('app.name') }}</h2>
-                    <p class="mt-2 text-base text-gray-600">Don’t have an account? <a href="{{ route('register') }}"
-                            title=""
+                    <p class="mt-2 text-base text-gray-600 dark:text-gray-300">Don’t have an account? <a
+                            href="{{ route('register') }}" title=""
                             class="font-medium text-blue-600 transition-all duration-200 hover:text-blue-700 hover:underline focus:text-blue-700">Create
                             a free account</a></p>
 
@@ -53,14 +53,15 @@
                 </div>
             </div>
 
-            <div class="flex items-center justify-center px-4 py-10 sm:py-16 lg:py-24 bg-gray-50 sm:px-6 lg:px-8">
+            <div
+                class="flex items-center justify-center px-4 py-10 sm:py-16 lg:py-24 bg-gray-50 dark:bg-gray-800 sm:px-6 lg:px-8">
                 <div>
                     <img class="w-full mx-auto"
                         src="https://cdn.rareblocks.xyz/collection/celebration/images/signup/1/cards.png"
                         alt="" />
 
                     <div class="w-full max-w-md mx-auto xl:max-w-xl">
-                        <h3 class="text-2xl font-bold text-center text-black">Design your own card</h3>
+                        <h3 class="text-2xl font-bold text-center ">Design your own card</h3>
                         <p class="leading-relaxed text-center text-gray-500 mt-2.5">Amet minim mollit non deserunt
                             ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis.</p>
 
