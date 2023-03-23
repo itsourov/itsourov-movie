@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css'])
     @livewireStyles
     <script>
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia(
@@ -25,6 +25,11 @@
     </main>
     @include('inc.footer')
     @livewireScripts
+
+    <script src="{{ asset('js/jquery-min.js') }}"></script>
+    @vite(['resources/js/app.js'])
+
+    @yield('scripts')
 </body>
 
 </html>

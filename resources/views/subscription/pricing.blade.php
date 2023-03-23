@@ -116,9 +116,9 @@
                                 </li>
                             </ul>
 
-                            <a href="#" title=""
+                            <button id="bKash_button" title=""
                                 class="inline-flex items-center justify-center w-full px-8 py-4 mt-10 font-semibold text-white transition-all duration-200 rounded-full bg-gradient-to-r from-fuchsia-600 to-blue-600 hover:opacity-80 focus:opacity-80"
-                                role="button"> Get full access </a>
+                                role="button"> Get full access </button>
 
                             <div class="flex items-center mt-5">
                                 <svg class="flex-shrink-0 w-5 h-5 text-gray-500" xmlns="http://www.w3.org/2000/svg"
@@ -134,5 +134,140 @@
             </div>
         </div>
     </section>
+
+
+
+    @section('scripts')
+        <script id="myScript" src="{{ config('services.bkash.script') }}"></script>
+        <script type="text/javascript">
+            var accessToken = '';
+            var refreshed = false;
+            $(document).ready(function() {
+                regenerateToken('{{ route('bkash.token') }}');
+                var paymentConfig = {
+                    createCheckoutURL: "{{ route('bkash.payment.create') }}",
+                    executeCheckoutURL: "{{ route('bkash.payment.execute') }}",
+                };
+
+                var paymentRequest;
+                paymentRequest = {
+                    amount: '105',
+                    intent: 'sale'
+                };
+                console.log(JSON.stringify(paymentRequest));
+                bKash.init({
+                    paymentMode: 'checkout',
+                    paymentRequest: paymentRequest,
+                    createRequest: function(request) {
+                        console.log('=> createRequest (request) :: ');
+                        console.log(request);
+
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            url: paymentConfig.createCheckoutURL + "?amount=" + paymentRequest
+                                .amount,
+                            type: 'GET',
+                            contentType: 'application/json',
+                            success: function(data) {
+                                console.log('got data from create  ..');
+                                console.log('data ::=>');
+                                console.log(JSON.stringify(data));
+
+
+                                var obj = JSON.parse(data);
+
+                                if (data && obj.message == 'Unauthorized' && !refreshed) {
+                                    regenerateToken('{{ route('bkash.token.refresh') }}', true);
+
+                                    alert('refreshing')
+                                } else if (data && obj.paymentID != null) {
+                                    paymentID = obj.paymentID;
+                                    bKash.create().onSuccess(obj);
+                                } else {
+                                    console.log('error');
+                                    bKash.create().onError();
+                                }
+                            },
+                            error: function() {
+                                console.log('error');
+                                bKash.create().onError();
+                            }
+                        });
+                    },
+
+                    executeRequestOnAuthorization: function() {
+                        console.log('=> executeRequestOnAuthorization');
+                        $.ajax({
+                            url: paymentConfig.executeCheckoutURL + "?paymentID=" + paymentID,
+                            type: 'GET',
+                            contentType: 'application/json',
+                            success: function(data) {
+                                console.log('got data from execute  ..');
+                                console.log('data ::=>');
+                                console.log(JSON.stringify(data));
+
+
+                                data = JSON.parse(data);
+                                if (data && data.paymentID != null) {
+                                    alert('[SUCCESS] data : ' + JSON.stringify(data));
+                                    // window.location.href = "success.html";
+                                    console.log(data);
+                                } else {
+                                    bKash.execute().onError();
+                                }
+                            },
+                            error: function() {
+                                bKash.execute().onError();
+                            }
+                        });
+                    }
+                });
+
+                console.log("Right after init ");
+
+
+            });
+
+            function callReconfigure(val) {
+                bKash.reconfigure(val);
+            }
+
+            function clickPayButton() {
+                $("#bKash_button").trigger('click');
+
+            }
+
+            function postRefresh() {
+                $("#bKash_button").trigger('click');
+                refreshed = true;
+            }
+
+            function regenerateToken(tokenUrl, refreshing = false) {
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    url: tokenUrl,
+                    type: 'POST',
+                    contentType: 'application/json',
+                    success: function(data) {
+
+                        accessToken = JSON.stringify(data);
+
+                        if (refreshing) {
+                            postRefresh();
+                        }
+                    },
+                    error: function() {
+                        console.log('error');
+
+                    }
+                });
+            }
+        </script>
+    @endsection
+
 
 </x-app-layout>

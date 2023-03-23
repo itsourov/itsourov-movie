@@ -1,4 +1,3 @@
-import './dark-mode';
 import Alpine from 'alpinejs'
 
 window.Alpine = Alpine
@@ -6,10 +5,8 @@ window.Alpine = Alpine
 Alpine.start()
 
 import './filepond.js';
+import './dark-mode.js';
 import 'spotlight.js';
+import './view-all-cast.js'
 
-
-import jQuery from 'jquery';
-window.$ = jQuery;
-import './view-all-cast';
 
