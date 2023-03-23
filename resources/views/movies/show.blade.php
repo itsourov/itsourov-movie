@@ -3,9 +3,8 @@
     <div class="container mx-auto px-2 mt-5">
         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
             <div class="flex justify-center ">
-                <a href="https://image.tmdb.org/t/p/original{{ $movie->poster }}" class="spotlight">
-                    <img src="https://image.tmdb.org/t/p/w500{{ $movie->poster }}" alt=""
-                        class=" rounded shadow w-full max-w-sm">
+                <a href="{{ $movie->poster('original') }}" class="spotlight">
+                    <img src="{{ $movie->poster('w500') }}" alt="" class=" rounded shadow w-full max-w-sm">
                 </a>
 
             </div>
@@ -112,40 +111,44 @@
 
             <div id="trailer-container" class="tab-content" style="display:none;">
                 <h4 class="text-base font-bold">Videos</h4>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
-                    <div class=" md:col-span-2">
-                        <div class="video-container">
+
+                @if (count($movie->trailers))
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                        <div class=" md:col-span-2">
+                            <div class="video-container">
 
 
-                            <iframe id="trailerVideoPreview"
-                                src="https://www.youtube.com/embed/{{ $movie->trailers[array_key_last($movie->trailers)]['key'] ?? '' }}"
-                                frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen></iframe>
+                                <iframe id="trailerVideoPreview"
+                                    src="https://www.youtube.com/embed/{{ $movie->trailers[array_key_last($movie->trailers)]['key'] ?? '' }}"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen></iframe>
+                            </div>
                         </div>
-                    </div>
-                    <div class="relative overflow-hidden1">
-                        <div
-                            class="space-y-3 grid grid-cols-1 overflow-y-scroll h-[60vh] border dark:border-gray-800 dark:shadow  p-1">
-                            @foreach ($movie->trailers as $video)
-                                <button
-                                    class="border dark:border-gray-800 dark:shadow dark:shadow-gray-800 dark:bg-gray-900 rounded p-2 flex gap-4 trailers-video-btn"
-                                    data-id="{{ $video['key'] }}">
-                                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor"
-                                        stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
-                                        aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z">
-                                        </path>
-                                    </svg>
-                                    <p class=" truncate"> <span class="font-bold">{{ $video['type'] }}</span> -
-                                        {{ $video['name'] }}</p>
-                                </button>
-                            @endforeach
+                        <div class="relative overflow-hidden">
+                            <div
+                                class="space-y-3 grid grid-cols-1 overflow-y-scroll max-h-[60vh] border dark:border-gray-800 dark:shadow  p-1">
+                                @foreach ($movie->trailers as $video)
+                                    <button
+                                        class="border dark:border-gray-800 dark:shadow dark:shadow-gray-800 dark:bg-gray-900 rounded p-2 flex gap-4 trailers-video-btn"
+                                        data-id="{{ $video['key'] }}">
+                                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor"
+                                            stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                            aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z">
+                                            </path>
+                                        </svg>
+                                        <p class=" truncate"> <span class="font-bold">{{ $video['type'] }}</span> -
+                                            {{ $video['name'] }}</p>
+                                    </button>
+                                @endforeach
+                            </div>
                         </div>
-                    </div>
 
-                </div>
+                    </div>
+                @endif
+
             </div>
         </div>
 
@@ -189,18 +192,22 @@
                                                 class="{{ $loop->iteration % 2 == 0 ? 'bg-gray-50 dark:bg-gray-800' : 'bg-white dark:bg-gray-700' }}">
                                                 <td
                                                     class="px-3 py-3 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                    <a href="{{ route('links.show', $link->id) }}" type="button"
-                                                        data-te-ripple-init data-te-ripple-color="light"
+                                                    <a href="{{ route('links.show', $link->id) }}" target="_blank"
+                                                        type="button" data-te-ripple-init
+                                                        data-te-ripple-color="light"
                                                         class="inline-block rounded bg-primary-500 px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
-                                                        Download
+                                                        {{ $link->type }}
                                                     </a>
                                                 </td>
                                                 <td class="px-3 py-3 whitespace-nowrap text-xs font-bold ">
-                                                    <p class="border dark:border-gray-500 rounded w-min p-1">720P</p>
+                                                    <p class="border dark:border-gray-500 rounded w-min p-1">
+                                                        {{ $link->quality }}</p>
                                                 </td>
-                                                <td class="px-3 py-3 whitespace-nowrap text-sm ">English
+                                                <td class="px-3 py-3 whitespace-nowrap text-sm ">{{ $link->language }}
                                                 </td>
-                                                <td class="px-3 py-3 whitespace-nowrap text-sm ">1</td>
+                                                <td class="px-3 py-3 whitespace-nowrap text-sm ">
+                                                    {{ $link->click_count }}
+                                                </td>
                                                 <td class="px-3 py-3 whitespace-nowrap text-sm ">
                                                     {{ $link->updated_at->diffForHumans() }}
                                                 </td>
@@ -224,6 +231,6 @@
         </div>
 
     </div>
-    @include('movies.inc.how-it-works')
+
 
 </x-app-layout>

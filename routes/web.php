@@ -30,7 +30,7 @@ Route::prefix('movies')->group(function () {
     Route::get('/', [MovieController::class, 'index'])->name('movies.index');
     Route::get('/{movie}', [MovieController::class, 'show'])->name('movies.show');
 });
-Route::prefix('links')->group(function () {
+Route::prefix('links')->middleware('auth')->group(function () {
 
     Route::get('/{link}', [LinkController::class, 'show'])->name('links.show');
 });

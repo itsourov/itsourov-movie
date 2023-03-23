@@ -23,7 +23,7 @@
     <main>
         {{ $slot }}
     </main>
-
+    @include('inc.footer')
     @livewireScripts
 </body>
 

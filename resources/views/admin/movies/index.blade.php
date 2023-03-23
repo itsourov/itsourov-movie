@@ -10,7 +10,7 @@
                     <div
                         class="border dark:border-gray-800 dark:shadow dark:shadow-gray-800 dark:bg-gray-900 rounded-md overflow-clip group">
                         <div class="poster overflow-clip relative">
-                            <img src="https://image.tmdb.org/t/p/w500{{ $movie->poster }}" alt=""
+                            <img src="{{ $movie->poster('w500') }}" alt=""
                                 class="object-cover w-full  group-hover:scale-110 transition duration-300 ease-in-out">
                             <div
                                 class=" absolute top-0 right-0 flex items-center bg-black rounded bg-opacity-50 px-1 space-x-1">

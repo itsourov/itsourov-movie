@@ -16,6 +16,7 @@ class Link extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'movie_id',
         'type',
         'quality',
         'language',

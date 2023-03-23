@@ -42,4 +42,14 @@ class Movie extends Model
     {
         return $this->hasMany(Link::class);
     }
+    public function poster($size)
+    {
+        if (!$this->poster) {
+            return 'https://www.themoviedb.org/assets/2/apple-touch-icon-cfba7699efe7a742de25c28e08c38525f19381d31087c69e89d6bcb8e3c0ddfa.png';
+        }
+        if (str_contains($this->poster, 'https://') || str_contains($this->poster, 'http://')) {
+            return $this->poster;
+        }
+        return 'https://image.tmdb.org/t/p/' . ($size ?? 'orginal') . $this->poster;
+    }
 }

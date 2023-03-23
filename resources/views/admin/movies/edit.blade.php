@@ -22,7 +22,7 @@
                 <div>
                     <x-input.label :value="__('is_adult')" />
                     <input type="checkbox" name="is_adult" class="switch-input"
-                        value="{{ old('is_adult', $movie->is_adult) }}">
+                        {{ old('is_adult', $movie->is_adult) ? 'checked' : '' }}>
                     <x-input.error class="mt-2" :messages="$errors->get('is_adult')" />
 
                 </div>

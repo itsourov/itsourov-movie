@@ -36,6 +36,7 @@ class LinkController extends Controller
      */
     public function show(Link $link)
     {
+        $link->update(['click_count' => $link->click_count + 1]);
         return redirect($link->value);
     }
 
