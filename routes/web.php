@@ -36,5 +36,10 @@ Route::prefix('links')->middleware('auth')->group(function () {
 });
 
 
+Route::get('/pricing', function () {
+    return view('subscription.pricing');
+})->name('home');
+
+
 require __DIR__ . '/inc/web/auth.php';
 require __DIR__ . '/inc/web/admin.php';

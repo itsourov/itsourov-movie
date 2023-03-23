@@ -239,6 +239,59 @@
             </x-card>
             <x-card class="space-y-2">
                 <div class="flex justify-between items-center cursor-pointer hover:text-primary-500"
+                    wire:click="genreSectionToggle">
+                    <h2 class=" text-xl">Genre</h2>
+                    <x-ri-arrow-down-s-line />
+                </div>
+                <x-input.error :messages="$errors->get('genres')" />
+
+                @if ($genreSectionOpened)
+                    <div class="content">
+
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            @foreach ($genres as $index => $gebre)
+                                <div class="border dark:border-gray-700 dark:bg-gray-900 rounded p-2 space-y-4">
+
+
+
+                                    <div>
+                                        <x-input.label value="{{ __('Genre title') }}" />
+                                        <x-input.text type="text" wire:model="genres.{{ $index }}.title"
+                                            placeholder="Enter info here" />
+                                        <x-input.error :messages="$errors->get("genres.$index.title")" />
+                                        @error("genres.$index.title")
+                                            <x-input.livewire-error>{{ $message }}</x-input.livewire-error>
+                                        @enderror
+                                    </div>
+                                    <div>
+                                        <x-input.label value="{{ __('TMDB ID') }}" />
+                                        <x-input.text type="text" wire:model="genres.{{ $index }}.tmdb_id"
+                                            placeholder="Enter info here" />
+                                        <x-input.error :messages="$errors->get("genres.$index.tmdb_id")" />
+                                        @error("genres.$index.tmdb_id")
+                                            <x-input.livewire-error>{{ $message }}</x-input.livewire-error>
+                                        @enderror
+                                    </div>
+
+                                    <x-button.danger wire:click="removeGenre({{ $index }})">
+                                        Remove
+                                    </x-button.danger>
+
+
+                                </div>
+                            @endforeach
+
+
+                        </div>
+
+                        <x-button.primary wire:click="addNewGenre">Add new</x-button.primary>
+                    </div>
+                @endif
+
+            </x-card>
+            <x-card class="space-y-2">
+                <div class="flex justify-between items-center cursor-pointer hover:text-primary-500"
                     wire:click="linkSectionToggle">
                     <h2 class=" text-xl">Links</h2>
                     <x-ri-arrow-down-s-line />

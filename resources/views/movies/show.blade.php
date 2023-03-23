@@ -17,11 +17,11 @@
                     </div>
                     <p class="text-sm text-gray-500">{{ date('M. d, Y', strtotime($movie->release_date)) }}</p>
 
-                    {{-- <div class="flex divide-x">
+                    <div class="flex divide-x dark:divide-gray-500">
                         @foreach ($movie->genres as $genre)
-                            <a href="/" class="hover:text-primary-600 px-2">{{ $genre->name }}</a>
+                            <a href="/" class="hover:text-primary-600 px-2">{{ $genre->title }}</a>
                         @endforeach
-                    </div> --}}
+                    </div>
 
                 </div>
                 <p><span class=" text-orange-400">Runtime:</span> {{ $movie->runtime }} min</p>

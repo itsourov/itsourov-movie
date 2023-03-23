@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Movies;
 
+use App\Models\Genre;
 use App\Models\Link;
 use App\Models\Movie;
 use Livewire\Component;
@@ -15,11 +16,12 @@ class CreateForm extends Component
     public $videoSectionOpened = false;
     public $castSectionOpened = false;
     public $crewSectionOpened = false;
+    public $genreSectionOpened = true;
     public $linkSectionOpened = true;
 
 
     public $movieArray = [
-        'tmdb_id' => '',
+        'tmdb_id' => '505642',
         'title' => '',
         'original_title' => '',
         'is_adult' => '',
@@ -35,6 +37,7 @@ class CreateForm extends Component
         'synopsis' => '',
     ];
     public $links = [];
+    public $genres = [];
 
 
     protected $rules = [
@@ -79,6 +82,10 @@ class CreateForm extends Component
     {
         $this->linkSectionOpened = !$this->linkSectionOpened;
     }
+    public function genreSectionToggle()
+    {
+        $this->genreSectionOpened = !$this->genreSectionOpened;
+    }
     public function removeVideo($index)
     {
 
@@ -99,6 +106,11 @@ class CreateForm extends Component
 
         unset($this->links[$index]);
     }
+    public function removeGenre($index)
+    {
+
+        unset($this->genres[$index]);
+    }
     public function addNewVideo()
     {
         array_push($this->movieArray['trailers'], []);
@@ -118,6 +130,10 @@ class CreateForm extends Component
     public function addNewLink()
     {
         array_push($this->links, ['value' => '', 'type' => 'Download', 'quality' => '720p', 'language' => 'English']);
+    }
+    public function addNewGenre()
+    {
+        array_push($this->genres, ['title' => '', 'tmdb_id' => '']);
     }
 
 
@@ -154,7 +170,7 @@ class CreateForm extends Component
 
 
         $movie = $movieJson;
-
+        // dd($movie);
 
 
 
@@ -175,11 +191,22 @@ class CreateForm extends Component
             'crew' => ($movie->credits->crew),
             'synopsis' => ($movie->overview),
         ];
+
+        $this->genres = [];
+        foreach ($movie->genres as $key => $genre) {
+            array_push($this->genres, ['title' => $genre->name, 'tmdb_id' => $genre->id]);
+        }
     }
 
 
     public function SaveNewMovie()
     {
+
+        $validatedGenres =  $this->validate([
+            'genres' => 'array', // Will make sure the the product_options is an array and has at least one element
+            'genres.*.title' =>  'distinct|required|min:3',
+            'genres.*.tmdb_id' =>  'distinct',
+        ]);
 
 
         $validatedData =  $this->validate();
@@ -199,12 +226,17 @@ class CreateForm extends Component
 
         foreach ($this->links as  $link) {
 
-            if (!$link['value']) {
-                return $this->addError('linkError', 'Link value is empty');
-            }
+
 
             Link::create(array_merge($link, ['movie_id' => $newMovie->id]));
         }
+        $genreIds = [];
+        foreach ($validatedGenres as  $genre) {
+            $newGenre =  Genre::firstOrCreate($genre, $genre);
+            array_push($genreIds, $newGenre->id);
+        }
+        $newMovie->genres()->sync($genreIds);
+
         DB::commit();
         return redirect(route('movies.show', $newMovie->id));
     }
