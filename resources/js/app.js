@@ -7,6 +7,5 @@ Alpine.start()
 import './filepond.js';
 import './dark-mode.js';
 import 'spotlight.js';
-import './view-all-cast.js'
 
 

@@ -182,6 +182,12 @@
                                     regenerateToken('{{ route('bkash.token.refresh') }}', true);
 
                                     alert('refreshing')
+                                }
+                                if (data && obj.message == 'The incoming token has expired' && !
+                                    refreshed) {
+                                    regenerateToken('{{ route('bkash.token.refresh') }}', true);
+
+                                    alert('refreshing')
                                 } else if (data && obj.paymentID != null) {
                                     paymentID = obj.paymentID;
                                     bKash.create().onSuccess(obj);
