@@ -35,7 +35,10 @@ class LinkController extends Controller
      * Display the specified resource.
      */
     public function show(Link $link)
-    {
+    {;
+        if (auth()->user()->package != 'basic') {
+            return redirect(route('pages.pricing'));
+        }
         $link->update(['click_count' => $link->click_count + 1]);
         return redirect($link->value);
     }

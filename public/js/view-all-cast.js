@@ -42,3 +42,9 @@ $('.trailers-video-btn').on('click', function (event) {
 
 
 
+$('.faq-container button').on('click', function (event) {
+    $(this).next().slideToggle(200, function () {
+        $(this).parent().toggleClass('shadow', $(this).is(':visible'))
+    })
+
+});

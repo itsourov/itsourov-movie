@@ -59,6 +59,23 @@
                         </x-slot>
 
                     </x-admin.sidebar-menu-item>
+                    <x-admin.sidebar-menu-item :active="request()->routeIs('admin.bt.*')" :dropdown="true">
+
+                        <x-slot name="icon">
+                            <x-ri-article-line />
+                        </x-slot>
+                        <x-slot name="title">
+                            {{ __('Bkash Transactions') }}
+                        </x-slot>
+
+                        <x-slot name="submenu">
+                            <x-admin.sidebar-sub-menu-item :href="route('admin.bt.index')" :active="request()->routeIs('admin.bt.index')">
+                                View all Transactions
+                            </x-admin.sidebar-sub-menu-item>
+
+                        </x-slot>
+
+                    </x-admin.sidebar-menu-item>
 
 
 

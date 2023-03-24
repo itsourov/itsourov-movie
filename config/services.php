@@ -50,10 +50,10 @@ return [
         'app_secret' => env('BKASH_APP_SECRET'),
         'username' => env('BKASH_USERNAME'),
         'password' => env('BKASH_PASSWORD'),
-        'createURL' => 'https://checkout.pay.bka.sh/v1.2.0-beta/checkout/payment/create',
-        'executeURL' => 'https://checkout.pay.bka.sh/v1.2.0-beta/checkout/payment/execute/',
-        'tokenURL' => 'https://checkout.pay.bka.sh/v1.2.0-beta/checkout/token/grant',
-        'script' => 'https://scripts.pay.bka.sh/versions/1.2.0-beta/checkout/bKash-checkout.js',
+        'createURL' => 'https://checkout.sandbox.bka.sh/v1.2.0-beta/checkout/payment/create',
+        'executeURL' => 'https://checkout.sandbox.bka.sh/v1.2.0-beta/checkout/payment/execute/',
+        'tokenURL' => 'https://checkout.sandbox.bka.sh/v1.2.0-beta/checkout/token/grant',
+        'script' => 'https://scripts.sandbox.bka.sh/versions/1.2.0-beta/checkout/bKash-checkout-sandbox.js',
     ],
 
 ];

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BkashTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
@@ -46,7 +47,7 @@ class BkashController extends Controller
     {
         $amount = $request->amount;
         $invoice = "46f647h7"; // must be unique
-        $intent = "authorization";
+        $intent = "sale";
 
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
@@ -72,6 +73,14 @@ class BkashController extends Controller
             'x-app-key' => config('services.bkash.app_key'),
         ])->post(config('services.bkash.executeURL') . $paymentID);
 
+
+        if ($response->json('paymentID')) {
+            $bkashTransaction = new BkashTransaction();
+            foreach ($response->json() as $key => $value) {
+                $bkashTransaction->$key = $value;
+            }
+            $bkashTransaction->save();
+        }
         return $response;
     }
 }

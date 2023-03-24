@@ -117,7 +117,7 @@
                             </ul>
 
                             <button id="bKash_button" title=""
-                                class="inline-flex items-center justify-center w-full px-8 py-4 mt-10 font-semibold text-white transition-all duration-200 rounded-full bg-gradient-to-r from-fuchsia-600 to-blue-600 hover:opacity-80 focus:opacity-80"
+                                class="inline-flex items-center justify-center w-full px-8 py-4 mt-10 font-semibold text-white transition-all duration-200 rounded-full bg-gradient-to-r from-fuchsia-600 to-blue-600 hover:opacity-80 focus:opacity-80 "
                                 role="button"> Get full access </button>
 
                             <div class="flex items-center mt-5">
@@ -136,6 +136,59 @@
     </section>
 
 
+    <x-modal name="bkash-modal" maxWidth="sm" focusable>
+        <div class="p-4">
+            <div>
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+                    <!-- Heroicon name: outline/check -->
+                    <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                </div>
+                <div class="mt-3 text-center sm:mt-5">
+                    <h3 class="text-lg leading-6 font-medium " id="modal-title">Payment successful</h3>
+                    <div class="mt-2">
+                        <p class="text-sm text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                            Consequatur amet labore.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5 sm:mt-6">
+                <button type="button" x-on:click="$dispatch('close')"
+                    class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm">
+                    Continue</button>
+            </div>
+        </div>
+    </x-modal>
+    <x-modal name="bkash-error-modal" maxWidth="sm" focusable>
+        <div class="p-4">
+            <div>
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+                    <!-- Heroicon name: outline/check -->
+                    <svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                </div>
+                <div class="mt-3 text-center sm:mt-5">
+                    <h3 class="text-lg leading-6 font-medium " id="bkash-error-modal-title">Payment error</h3>
+
+                </div>
+            </div>
+            <div class="mt-5 sm:mt-6">
+                <x-button.primary class="w-full" x-on:click="$dispatch('close')">Continue</x-button.primary>
+            </div>
+        </div>
+    </x-modal>
+    <div id="loading-overlay" style="display: none"
+        class="fixed z-40 flex tems-center justify-center inset-0 bg-gray-700 dark:bg-gray-900 dark:bg-opacity-50 bg-opacity-50 transition-opacity">
+        <div class="flex items-center justify-center ">
+            <div class="w-40 h-40 border-t-4 border-b-4 border-green-900 rounded-full animate-spin">
+            </div>
+        </div>
+    </div>
 
     @section('scripts')
         <script id="myScript" src="{{ config('services.bkash.script') }}"></script>
@@ -143,6 +196,9 @@
             var accessToken = '';
             var refreshed = false;
             $(document).ready(function() {
+
+
+
                 regenerateToken('{{ route('bkash.token') }}');
                 var paymentConfig = {
                     createCheckoutURL: "{{ route('bkash.payment.create') }}",
@@ -154,13 +210,12 @@
                     amount: '105',
                     intent: 'sale'
                 };
-                console.log(JSON.stringify(paymentRequest));
+
                 bKash.init({
                     paymentMode: 'checkout',
                     paymentRequest: paymentRequest,
                     createRequest: function(request) {
-                        console.log('=> createRequest (request) :: ');
-                        console.log(request);
+
 
                         $.ajax({
                             headers: {
@@ -171,34 +226,57 @@
                             type: 'GET',
                             contentType: 'application/json',
                             success: function(data) {
-                                console.log('got data from create  ..');
-                                console.log('data ::=>');
-                                console.log(JSON.stringify(data));
+
 
 
                                 var obj = JSON.parse(data);
 
-                                if (data && obj.message == 'Unauthorized' && !refreshed) {
-                                    regenerateToken('{{ route('bkash.token.refresh') }}', true);
+                                if (data) {
 
-                                    alert('refreshing')
-                                }
-                                if (data && obj.message == 'The incoming token has expired' && !
-                                    refreshed) {
-                                    regenerateToken('{{ route('bkash.token.refresh') }}', true);
+                                    if (!refreshed) {
+                                        if (obj.message == 'Unauthorized' || obj.message ==
+                                            'The incoming token has expired') {
+                                            regenerateToken(
+                                                '{{ route('bkash.token.refresh') }}',
+                                                true);
+                                        }
+                                    }
+                                    if (data && obj.paymentID != null) {
+                                        paymentID = obj.paymentID;
+                                        bKash.create().onSuccess(obj);
+                                    } else {
 
-                                    alert('refreshing')
-                                } else if (data && obj.paymentID != null) {
-                                    paymentID = obj.paymentID;
-                                    bKash.create().onSuccess(obj);
+                                        $('#bkash-error-modal-title').text(
+                                            'Unexpected Error!! ' + obj.errorMessage)
+
+                                        window.dispatchEvent(new CustomEvent('open-modal', {
+                                            detail: 'bkash-error-modal'
+                                        }));
+                                        bKash.create().onError();
+                                    }
+
                                 } else {
-                                    console.log('error');
-                                    bKash.create().onError();
+                                    $('#bkash-error-modal-title').text('Unexpected Error!')
+
+                                    window.dispatchEvent(new CustomEvent('open-modal', {
+                                        detail: 'bkash-error-modal'
+                                    }));
                                 }
+
+                                $('#loading-overlay').hide();
                             },
-                            error: function() {
-                                console.log('error');
+                            error: function(e) {
+                                $('#loading-overlay').hide();
                                 bKash.create().onError();
+
+                                $('#bkash-error-modal-title').text(
+                                    'Unexpected Error! ' + e
+                                    .statusText)
+
+                                window.dispatchEvent(new CustomEvent('open-modal', {
+                                    detail: 'bkash-error-modal'
+                                }));
+
                             }
                         });
                     },
@@ -206,34 +284,60 @@
                     executeRequestOnAuthorization: function() {
                         console.log('=> executeRequestOnAuthorization');
                         $.ajax({
-                            url: paymentConfig.executeCheckoutURL + "?paymentID=" + paymentID,
+                            url: paymentConfig.executeCheckoutURL + "?paymentID=" +
+                                paymentID,
                             type: 'GET',
                             contentType: 'application/json',
                             success: function(data) {
-                                console.log('got data from execute  ..');
-                                console.log('data ::=>');
-                                console.log(JSON.stringify(data));
-
 
                                 data = JSON.parse(data);
                                 if (data && data.paymentID != null) {
                                     alert('[SUCCESS] data : ' + JSON.stringify(data));
-                                    // window.location.href = "success.html";
+
                                     console.log(data);
                                 } else {
                                     bKash.execute().onError();
+
+                                    $('#bkash-error-modal-title').text(data
+                                        .errorMessage)
+
+                                    window.dispatchEvent(new CustomEvent('open-modal', {
+                                        detail: 'bkash-error-modal'
+                                    }));
                                 }
                             },
-                            error: function() {
+                            error: function(e) {
                                 bKash.execute().onError();
+
+
+                                $('#bkash-error-modal-title').text(
+                                    'Unexpected Error! ' + e
+                                    .statusText)
+
+                                window.dispatchEvent(new CustomEvent('open-modal', {
+                                    detail: 'bkash-error-modal'
+                                }));
+
                             }
                         });
-                    }
+
+                    },
+                    onClose: function() {
+                        $('#bkash-error-modal-title').text('Payment window closed')
+
+                        window.dispatchEvent(new CustomEvent('open-modal', {
+                            detail: 'bkash-error-modal'
+                        }));
+                    },
+
                 });
 
-                console.log("Right after init ");
 
 
+
+            });
+            $("#bKash_button").click(function() {
+                $('#loading-overlay').show();
             });
 
             function callReconfigure(val) {
@@ -266,8 +370,13 @@
                             postRefresh();
                         }
                     },
-                    error: function() {
-                        console.log('error');
+                    error: function(e) {
+
+                        $('#bkash-error-modal-title').text('Unexpected Error! ' + e.statusText)
+
+                        window.dispatchEvent(new CustomEvent('open-modal', {
+                            detail: 'bkash-error-modal'
+                        }));
 
                     }
                 });
